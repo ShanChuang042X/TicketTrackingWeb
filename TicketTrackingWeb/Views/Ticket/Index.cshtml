@@ -1,0 +1,237 @@
+﻿@model IEnumerable<TicketTrackingWeb.Models.Ticket>
+
+@{
+    ViewData["Title"] = "Index";
+
+    string charater = ViewBag.charater;
+}
+
+<h2>Index</h2>
+
+<div>
+    <div style="display:inline-block;">
+        @if (charater == "QA")
+        {
+            <button onclick="Add();" id="AddButton">Add</button>
+        }
+    </div>
+    <div style="display:inline-block;float:right;">
+        <button type="button" onclick="location.href='@Url.Action("LogIn", "Home")'" >LogOut</button>
+    </div>
+</div>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Applicant)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Summary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Solver)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Severity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Priority)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="99" align="center">查無資料</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Applicant)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Summary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Solver)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Severity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Priority)
+                </td>
+                <td>
+                    <button onclick="Detail('@item.TicketId')">Details</button>
+                    @if (item.Status == "Open")
+                    {
+                        @switch (charater)
+                        {
+                            case "QA":
+                                <button onclick="Edit('@item.TicketId')">Edit</button>
+                                <button onclick="Delete('@item.TicketId')">Delete</button>
+                                break;
+                            case "RD":
+                                <button onclick="Solve('@item.TicketId')">Solve</button>
+                                break;
+                        }
+                    }
+
+                </td>
+            </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<!--Add partial view-->
+<div id="partialModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    //alert message from server
+    @if(TempData["mesage"].ToString() != "")
+    {
+        <Text>
+        alert('@TempData["mesage"].ToString()');
+        </Text>
+    }
+
+    /*打開 Add分頁 */
+    function Add() {
+        $.ajax({
+            type: "POST",
+            url: "/Ticket/OpenAddPage",
+            //data: { "customerId": customerId },
+            success: function (response) {
+                $("#partialModal").find(".modal-body").html(response);
+                $("#partialModal").modal('show');
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    }
+
+    function Detail(ticketID) {
+        $.ajax({
+            type: "POST",
+            url: "/Ticket/OpenDetailsPage",
+            data: { "ticketID": ticketID },
+            success: function (response) {
+                $("#partialModal").find(".modal-body").html(response);
+                $("#partialModal").modal('show');
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    }
+
+    function Edit(ticketID) {
+        $.ajax({
+            type: "POST",
+            url: "/Ticket/OpenEditPage",
+            data: { "ticketID": ticketID },
+            success: function (response) {
+                $("#partialModal").find(".modal-body").html(response);
+                $("#partialModal").modal('show');
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    }
+
+    function Delete(ticketID) {
+        $.ajax({
+            type: "POST",
+            url: "/Ticket/Delete",
+            data: { "ticketID": ticketID },
+            success: function (response) {
+                window.location.reload();
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    }
+
+    function Solve(ticketID) {
+        $.ajax({
+            type: "POST",
+            url: "/Ticket/OpenSolvePage",
+            data: { "ticketID": ticketID },
+            success: function (response) {
+                $("#partialModal").find(".modal-body").html(response);
+                $("#partialModal").modal('show');
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    }
+</script>

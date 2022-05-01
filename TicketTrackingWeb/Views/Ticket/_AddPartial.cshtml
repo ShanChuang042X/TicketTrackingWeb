@@ -1,0 +1,52 @@
+﻿@model TicketTrackingWeb.Models.Ticket
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{ 
+    //Ticket ticket = ViewBag.ticket;
+    string ticketID = ViewBag.ticketID;
+}
+<form asp-action="Add" role="form" id="addForm">
+    <table>
+        <thead style="display:none;">
+            <tr>
+                <!--切成4格-->
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tr>
+            <td>
+                Applicant
+            </td>
+            <td colspan="3">
+                <input type="text" asp-for="Applicant" required />
+                <span asp-validation-for="Applicant"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Summary</td>
+            <td colspan="3">
+                <input type="text" asp-for="Summary" required />
+                <span asp-validation-for="Summary"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td colspan="3">
+                <textarea asp-for="Description" rows="6" cols="40" required></textarea>
+                <span asp-validation-for="Description"></span>
+            </td>
+        </tr>
+    </table>
+    <button type="submit" id="modelAddSubmit" class="btn btn-secondary">Submit</button>
+</form>
+
+<script language="text/javascript">
+    
+
+
+    
+</script>

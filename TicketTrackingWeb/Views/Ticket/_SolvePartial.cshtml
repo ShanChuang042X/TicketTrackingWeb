@@ -1,0 +1,64 @@
+﻿@model TicketTrackingWeb.Models.Ticket
+
+<h4>Ticket</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Solve">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TicketId" class="control-label"></label>
+                <input asp-for="TicketId" class="form-control" readonly />
+                <span asp-validation-for="TicketId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketType" class="control-label"></label>
+                <input asp-for="TicketType" class="form-control" readonly />
+                <span asp-validation-for="TicketType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Applicant" class="control-label"></label>
+                <input asp-for="Applicant" class="form-control" readonly />
+                <span asp-validation-for="Applicant" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" readonly />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Summary" class="control-label"></label>
+                <input asp-for="Summary" class="form-control" readonly />
+                <span asp-validation-for="Summary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Severity" class="control-label"></label>
+                <input asp-for="Severity" class="form-control" readonly />
+                <span asp-validation-for="Severity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Priority" class="control-label"></label>
+                <input asp-for="Priority" class="form-control" readonly />
+                <span asp-validation-for="Priority" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Solver" class="control-label"></label>
+                <input asp-for="Solver" class="form-control" />
+                <span asp-validation-for="Solver" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RDRemark" class="control-label"></label>
+                <textarea asp-for="RDRemark" class="form-control" ></textarea>
+                <span asp-validation-for="RDRemark" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

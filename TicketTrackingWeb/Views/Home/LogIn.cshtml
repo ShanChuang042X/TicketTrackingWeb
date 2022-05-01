@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewData["Title"] = "LogIn";
+    Layout = "";
+}
+<style>
+    .button {
+        width:150px;
+        height:80px;
+        font-size:24px;
+    }
+</style>
+<form asp-action="CheckLogIn">
+    <div style="align-content:center;text-align:center;width:500px;height:300px;margin:0px auto;">
+        <div style="display:inline-block;">
+            <h2>LogIn</h2>
+        </div>
+        <div style="display:inline-block;">
+            <p>Choose your charater</p>
+            <button type="submit" class="btn btn-secondary button" name="charater" value="QA">QA</button>
+            <button type="submit" class="btn btn-secondary button" name="charater" value="RD">RD</button>
+        </div>
+    </div>
+</form>
+
+
+
